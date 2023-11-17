@@ -8,10 +8,12 @@ use App\Models\Project;
 
 class ProjectController extends Controller
 {
-   /*  public function projects()
-    {
-        $projects = Project::all();
-
-        return view('admin.projects.index', compact('projects'));
-    } */
+    public function index (){
+        return response()->json([
+            'status' => 'Success',
+            'result' => Project::paginate(5)
+        ]);
+    }
 }
+
+
