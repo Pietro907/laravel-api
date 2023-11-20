@@ -17,18 +17,19 @@ class StoreProjectRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule,array<mixed>|string>
      */
     public function rules(): array
     {
         return [
             'title' => ['required','unique:projects', 'bail','max:50', 'min:3'],
-/*             'description' => 'require|max 100|min 10',
-            'authors' => 'nullable|unique|max 50|min 3',
-            'link' => 'require|unique|max 255',
-            'git_hub' => 'require|unique|max 255',
-            'type_id' => 'nullable',
-            'tech' => 'nullable', */
+            'thumb'  => ['nullable', 'image','max:300'],
+            /* 'description' => ['required,max 100,min 10'],
+            'authors' => ['nullable,unique,max 50,min 3'],
+            'link' => ['required,unique,max 255'],
+            'git_hub' => ['required,unique,max 255'],
+            'type_id' => ['nullable'],
+            'tech' => ['nullable'], */
         ];
     }
 }

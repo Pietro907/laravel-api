@@ -18,6 +18,14 @@
                 <small id="titleHelper" class="form-text text-muted">Scrivi un titolo per il tuo progetto</small>
             </div>
 
+            {{-- edit image --}}
+            <div class="mb-3">
+                <label for="thumb" class="form-label">Choose image</label>
+                <input type="file" class="form-control" name="thumb" id="thumb" placeholder="image.."
+                    aria-describedby="fileHelpThumb">
+                <div id="fileHelpThumb" class="form-text">Your Image</div>
+            </div>
+
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione</label>
                 {{-- utilizziamo la funzione old per ridare all'utente i valori inseriti prima,in caso di errore --}}

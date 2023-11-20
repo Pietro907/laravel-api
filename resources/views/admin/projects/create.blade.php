@@ -31,11 +31,17 @@
 
 
             <div class="mb-3">
-                <label for="cover_image" class="form-label">Choose image</label>
-                <input type="file" class="form-control" name="cover_image" id="cover_image" placeholder="Cover Image"
-                    aria-describedby="fileHelpId">
-                <div id="fileHelpId" class="form-text">Help text</div>
+                <label for="thumb" class="form-label">Choose image</label>
+                <input type="file" class="form-control" name="thumb" id="thumb" placeholder="image.."
+                    aria-describedby="fileHelpThumb">
+                <div id="fileHelpThumb" class="form-text">Your Image</div>
             </div>
+
+            {{-- <div class="mb-3">
+                <label for="thumb" class="form-label">Scegli una immagine</label>
+                <input type="file" class="form-control" name="thumb" id="thumb" placeholder="Scegli una immagine per il tuo progetto" aria-describedby="thumb_helper" value="{{ old('thumb') }}">
+                <div id="thumb_helper" class="form-text">Inserisci una immagine</div>
+            </div> --}}
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>

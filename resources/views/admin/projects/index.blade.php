@@ -62,7 +62,7 @@
                         <td><b>{{ $project->title }}</b></td>
                         <td>
                             @if ($project->thumb)
-                                <img class="w-100 p-3" src="{{ $project->thumb }}" alt="{{ $project->thumb }}">
+                                <img class="w-100 p-3" src="{{ asset('storage/' . $project->thumb) }}" alt="{{ $project->thumb }}">
                             @else
                                 N/A
                             @endif

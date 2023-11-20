@@ -9,6 +9,8 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use function PHPUnit\Framework\isNull;
 
 
 class ProjectController extends Controller
@@ -26,12 +28,7 @@ class ProjectController extends Controller
     /* Show the form for creating a new resource. */
     public function create()
     {
-        $project = Project::all();
-        /* if ($project) {
-           $project->restore();
-           return $project;
-        } */
-
+        /* $project = Project::all(); */
 
         $types = Type::all();
 
@@ -43,7 +40,8 @@ class ProjectController extends Controller
     /* Store a newly created resource in storage. */
     public function store(StoreProjectRequest $request)
     {
-/*         $project = new Project();
+
+/*      $project = new Project();
         $project->title = $request->title;
         $project->thumb = $request->thumb;
         $project->description = $request->description;
@@ -56,15 +54,21 @@ class ProjectController extends Controller
         $project->type_id = $request->type_id; 
         
         $project->save();*/
-        if ($request->has('thum')) {
-            $path = Storage::put('project_thumb', $request->thumb);
+        
+        
+        $val_data = $request->validated();
+        
+        if ($request->has('thumb')) {
+            $path = Storage::put('thumb', $request->thumb);
             $val_data['thumb'] = $path;
         }
-        $val_data = $request->validated();
-
+        
+        
+        //dd($val_data);
+        
         $project =  Project::create($val_data);
-
-
+        
+        //dd($project);
 
         return to_route('project.index')->with('create_mess', 'Created Project success 💚');
     }
@@ -86,8 +90,17 @@ class ProjectController extends Controller
     /* Update the specified resource in storage. */
     public function update(UpdateProjectRequest $request, Project $project)
     {
+        
+        if($request->has('thumb')){
+            $new_thumb = $request->thumb;
 
+            $path = Storage::put('thumb', $new_thumb);
 
+            if (!isNull($project->thumb) && Storage::fileExists($project->thumb)) {
+                Storage::delete($project->thumb);
+            }
+            $val_data['thumb'] = $path;
+        }
 
         $data = $request->all();
         $project->update($data);

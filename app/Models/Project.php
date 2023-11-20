@@ -16,7 +16,7 @@ class Project extends Model
     // in questo caso per i project nel db projects
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'authors', 'type_id'];
+    protected $fillable = ['title', 'thumb', 'description', 'authors', 'type_id'];
 
     public function type():BelongsTo{
         return $this->belongsTo(Type::class);

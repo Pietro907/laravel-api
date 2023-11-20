@@ -20,7 +20,6 @@ class ProjectSeeder extends Seeder
             $proj = new Project();
             $proj->title = $faker->realText(10);
             
-            
             $proj->thumb = $faker->imageUrl(150, 150, 'project', false);
 
             //$proj->thumb = $faker->imageUrl(640, 480, 'animals', true);
