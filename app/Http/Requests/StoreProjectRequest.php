@@ -23,13 +23,13 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'title' => ['required','unique:projects', 'bail','max:50', 'min:3'],
-            'thumb'  => ['nullable', 'image','max:300'],
-            /* 'description' => ['required,max 100,min 10'],
-            'authors' => ['nullable,unique,max 50,min 3'],
+            'thumb'  => ['nullable', 'image','max:500'],
+            'description' => ['required','max:100','min:10'],
+            'authors' => ['nullable','max:50','min:3'],
             'link' => ['required,unique,max 255'],
             'git_hub' => ['required,unique,max 255'],
             'type_id' => ['nullable'],
-            'tech' => ['nullable'], */
+            'tech' => ['nullable'],
         ];
     }
 }

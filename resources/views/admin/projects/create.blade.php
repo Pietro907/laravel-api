@@ -104,7 +104,9 @@
                 </ul>
             </div>
 
-
+            @error('type_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
             {{-- <div class="mb-3">
                 <label for="technologies" class="form-label">Technologies</label>
                 <select multiple class="form-select" name="technologies" id="technologies">
@@ -129,32 +131,25 @@
                     @forelse ($technologies as $technology)
                         <li>
                             <label>
-                                <input type="checkbox" value="{{ $technology->id }} {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}">
+                                <input type="checkbox"
+                                    value="{{ $technology->id }} {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}">
                                 {{ $technology->technology }}
                             </label>
                         </li>
                     @empty
 
                         N/A
-
                     @endforelse
                 </ul>
             </div>
 
 
-            @error('type_id')
+
+            @error('technologies')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 
             </select>
-    </div>
-    @error('technologies')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-
-    <button type="submit" class="btn btn-primary my-5">Aggiungi Proj</button>
-
-    </form>
-
+            <button type="submit" class="btn btn-primary my-5">Aggiungi Proj</button>
     </div>
 @endsection

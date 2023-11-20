@@ -22,14 +22,14 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|unique|max:50|min:3',
+            'title' => 'required|max:50|min:3',
             'thumb' => 'nullable|image|max:300',
-            /* 'description' => 'required|max 100|min 10',
-            'authors' => 'nullable|unique|max 50|min 3',
+            'description' => 'required|max:100|min:10',
+            'authors' => 'nullable|max:50|min:3', 
             'link' => 'required|unique|max 255',
-            'git_hub' => 'required|unique|max 255',
+            'git_hub' => 'required|unique|max 255', 
             'type_id' => 'nullable',
-            'tech' => 'nullable', */
+            'tech' => 'nullable', 
         ];
     }
 }
