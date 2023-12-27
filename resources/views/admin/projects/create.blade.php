@@ -107,20 +107,7 @@
             @error('type_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-            {{-- <div class="mb-3">
-                <label for="technologies" class="form-label">Technologies</label>
-                <select multiple class="form-select" name="technologies" id="technologies">
-                    <option selected disabled>Select one</option>
-            </div>
 
-            <!-- TODO: Improve validation outputs -->
-            @foreach ($technologies as $technology)
-                <option value="{{ $technology->id }}"
-                    {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}>
-                    {{ $technology->technology }}
-                </option>
-            @endforeach
- --}}
 
             <div class="dropdown my-3">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="multiSelectDropdown"
@@ -133,7 +120,7 @@
                             <label>
                                 <input type="checkbox"
                                     value="{{ $technology->id }} {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}">
-                                {{ $technology->technology }}
+                                {{ $technology->tech }}
                             </label>
                         </li>
                     @empty

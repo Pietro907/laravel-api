@@ -4,7 +4,7 @@
     <h1>Update</h1>
 
     <div class="col-6 mx-auto">
-        <form action="{{ route('project.update', $project) }}" method="post">
+        <form action="{{ route('project.update', $project) }}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
@@ -47,46 +47,41 @@
             <div class="mb-3">
                 <label for="type_id" class="form-label">Types</label>
                 <select class="form-select @error('type_id') is-invalid  @enderror" name="type_id" id="type_id">
-
                     <option selected disabled>Select a type</option>
-                    <option value="">Uncategorized</option>
 
                     @forelse ($types as $type)
                         <option value="{{ $type->id }}" {{ $type->id == old('type_id') ? 'selected' : '' }}>
-                            {{ $type->type }}
-                        </option>
+                            {{ $type->type }}</option>
                     @empty
                     @endforelse
 
 
-
                 </select>
             </div>
+            @error('type_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
 
             <div class="mb-3">
                 <label for="technologies" class="form-label">Technologies</label>
-                <select multiple class="form-select" name="technologies" id="technologies">
-                    <option selected disabled>Select one</option>
+                <select multiple class="form-select" name="technologies[]" id="technologies">
+                    <option disabled>Select one</option>
 
                     <!-- TODO: Improve validation outputs -->
                     @foreach ($technologies as $technology)
                         <option value="{{ $technology->id }}"
                             {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}>
-                            {{ $technology->technology }}
-
-
+                            {{ $technology->tech }}
                         </option>
                     @endforeach
 
-                    @error('type_id')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
 
                 </select>
             </div>
             @error('technologies')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
+
 
             <button type="submit" class="btn btn-warning">Update</button>
         </form>

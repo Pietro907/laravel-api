@@ -12,11 +12,10 @@ class Project extends Model
 {
     use HasFactory;
 
-    //implemeto la softDeletes() nel model che mi interessa usi questa fn
-    // in questo caso per i project nel db projects
+    //implemeto la softDeletes() nel model in questo caso per i project nel db projects
     use SoftDeletes;
 
-    protected $fillable = ['title', 'thumb', 'description', 'authors', 'type_id'];
+    protected $fillable = ['title', 'thumb', 'description', 'authors', 'type_id', 'tech', 'link_github', 'link'];
 
     public function type():BelongsTo{
         return $this->belongsTo(Type::class);

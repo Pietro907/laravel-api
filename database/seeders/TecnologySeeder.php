@@ -14,9 +14,9 @@ class TecnologySeeder extends Seeder
     public function run(): void
     {
         $technologies = ['Vue', 'Laravel', 'php', 'javascript', 'html', 'css', 'bootstrap', 'mysql', 'sass'];
-        foreach ($technologies as $tech) {
+        foreach ($technologies as $technology) {
             $new_tech = new Tecnology(); 
-            $new_tech->technology = $tech;
+            $new_tech->technologies = $technology;
             $new_tech->save();
         }
     }

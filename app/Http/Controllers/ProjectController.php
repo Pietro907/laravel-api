@@ -9,7 +9,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+
 use function PHPUnit\Framework\isNull;
 
 
@@ -22,7 +22,7 @@ class ProjectController extends Controller
         $projects = Project::all();
         $types = Type::all();
         $technologies = Tecnology::all();
-        return view('admin.projects.index', compact('projects','types', 'technologies'));
+        return view('admin.projects.index', compact('projects', 'types', 'technologies'));
     }
 
     /* Show the form for creating a new resource. */
@@ -41,7 +41,7 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
 
-/*      $project = new Project();
+        /*      $project = new Project();
         $project->title = $request->title;
         $project->thumb = $request->thumb;
         $project->description = $request->description;
@@ -54,21 +54,23 @@ class ProjectController extends Controller
         $project->type_id = $request->type_id; 
         
         $project->save();*/
-        
-        
+
+
         $val_data = $request->validated();
-        
+
         if ($request->has('thumb')) {
             $path = Storage::put('thumb', $request->thumb);
             $val_data['thumb'] = $path;
         }
-        
-        
+
+
         //dd($val_data);
-        
+
         $project =  Project::create($val_data);
-        
+
         //dd($project);
+
+        $project->technologies()->attach($request->technologies);
 
         return to_route('project.index')->with('create_mess', 'Created Project success 💚');
     }
@@ -84,14 +86,17 @@ class ProjectController extends Controller
     {
         $types = Type::all();
         $technologies = Tecnology::all();
-        return view('admin.projects.edit', compact('project', 'types','technologies'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /* Update the specified resource in storage. */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        
-        if($request->has('thumb')){
+
+        $data = $request->all();
+        //dd($request->all());
+
+        if ($request->has('thumb')) {
             $new_thumb = $request->thumb;
 
             $path = Storage::put('thumb', $new_thumb);
@@ -101,11 +106,18 @@ class ProjectController extends Controller
             }
             $val_data['thumb'] = $path;
         }
+        // eseguo un detach per rimuovere tutti i vecchi collegamenti con le tecnologie
+        if ($request->has('technologies')){
+            $project->technologies()->sync($data['technologies']);
+        }
 
-        $data = $request->all();
+        // prendo i dati della richiesta e lo passo nel model Technology e tramite attach,
+        // creo il collegamento nella tabella condivisa tra project e tecnology
+        /* $project->technologies()->attach($request->technologies); */
+
         $project->update($data);
-        //$types->update($data);
-        return redirect()->route('project.show', $project->id); //aggiungere qui compact('types')    ????
+
+        return redirect()->route('project.show', $project->id);
     }
 
     /**
@@ -117,20 +129,20 @@ class ProjectController extends Controller
         return redirect()->route('project.index')->with('messaggio', 'Your Project has deleted! 💥');
     }
 
-    public function recycle() {
+    public function recycle()
+    {
         $trashed = Project::onlyTrashed()->orderByDesc('id')->paginate('10');
-        
+
         return view('admin.projects.recycle', compact('trashed'));
-        
     }
-    
-    public function restore($id) {
+
+    public function restore($id)
+    {
         $project = Project::onlyTrashed()->find($id);
 
-        if($project){
+        if ($project) {
             $project->restore();
             return redirect()->route('project.recycle')->with('recycle_mess', 'The project was restored ♻');
         }
-        
     }
 }

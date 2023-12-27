@@ -13,6 +13,5 @@ class Type extends Model
     public function projects(): HasMany
     {
         return $this->HasMany(Type::class);
-    
     }
 }
