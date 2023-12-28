@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {     //autenticare il percorso del link ne
 
 Route::get('recycle', [ProjectController::class, 'recycle'])->name('project.recycle');
 
-Route::get('/destroy', [ProjectController::class, 'destroy'])->name('project.destroy');
+//Route::get('/destroy', [ProjectController::class, 'destroy'])->name('project.destroy');
 
 Route::get('project/{id}/restore',[ProjectController::class, 'restore'])->name('project.restore');
 

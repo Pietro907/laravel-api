@@ -61,13 +61,13 @@ aggiungere le operazioni CRUD per il model Type, in modo da gestire le tipologie
 
  -->
 
-# creo il model, migration & seed Tecnology/Tecnologies
+# creo il model, migration & seed Technology/Tecnologies
 
-- php artisan make:model Tecnology -ms
+- php artisan make:model Technology -ms
 
-## popolo con seed di TecnologySeeder
+## popolo con seed di TechnologySeeder
 
- - php artisan db:seed --class=TecnologySeeder
+ - php artisan db:seed --class=TechnologySeeder
 
 ### creo la cartella placeholders in torgae/app/public/storage/project_images + placeholders
 
@@ -95,9 +95,9 @@ php
 
 - php artisan migrate
 
-#### Tecnology & Project model
+#### Technology & Project model
 
-- Tecnology -> public fn projects(): BelongsToMany
+- Technology -> public fn projects(): BelongsToMany
                 return $this->belongsToMany(Project::class);
 
 - Project -> public fn technologies(): BelongsToMany
@@ -107,7 +107,7 @@ php
                 
 ###### create 
 
-- $technologies = Tecnology:all();
+- $technologies = Technology:all();
 
 
 #### SoftDeletes

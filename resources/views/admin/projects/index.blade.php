@@ -73,7 +73,7 @@
                         <td><a href="{{ $project->link }}"><i class="fa-solid fa-link text"></i></a></td>
                         <td><a href="{{ $project->github_link }}"><i class="fa-brands fa-github"></i></a></td>
                         <td>{{ $project->type ? $project->type->type : 'Nessuna tipologia' }}</td>
-                        <td>{{ $project->technology ? $project->technology->technology : 'Nessuna tecnologia' }}</td>
+                        <td>{{ $project->technology ? $project->technology->techonologies : 'Nessuna tecnologia' }}</td>
                         <td>
                             {{-- <a href="project/{project}">{{ $project->slug }}</a> --}}
 

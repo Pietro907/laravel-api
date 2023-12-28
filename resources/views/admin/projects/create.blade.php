@@ -119,8 +119,8 @@
                         <li>
                             <label>
                                 <input type="checkbox"
-                                    value="{{ $technology->id }} {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}">
-                                {{ $technology->tech }}
+                                    value="{{ $technology->id }} {{ in_array($technology->id, old('technology', [])) ? 'selected' : '' }}">
+                                {{ $technology->name }}
                             </label>
                         </li>
                     @empty
@@ -132,7 +132,7 @@
 
 
 
-            @error('technologies')
+            @error('technology')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 

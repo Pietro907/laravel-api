@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('authors')->nullable();
             $table->string('slug')->nullable();
-            $table->string('tech')->nullable();
+            $table->string('technologies')->nullable();
             $table->timestamps();
         });
     }

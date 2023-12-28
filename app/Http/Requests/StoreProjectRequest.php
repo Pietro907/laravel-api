@@ -38,7 +38,7 @@ class StoreProjectRequest extends FormRequest
             'authors' => 'nullable|max:50|min:3',
             /* 'tech' => 'nullable|bail|min:3|max:200', */
             'type_id' => ['nullable', 'exists:types,id'],
-            'tech' => ['nullable', 'exists:technologies,id'],
+            'technologies' => ['nullable', 'exists:technologies,id'],
             'link_github' => 'nullable|bail|url:http,https',
             'link' => 'nullable|bail|url:http,https',
         ];

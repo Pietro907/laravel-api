@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use App\Models\Project;
-use App\Models\Tecnology;
+use App\Models\Technology;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
@@ -20,9 +20,13 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        $types = Type::all();
-        $technologies = Tecnology::all();
-        return view('admin.projects.index', compact('projects', 'types', 'technologies'));
+        // Esempio di query per ottenere i dati di progetto insieme al tipo associato
+        $projects = Project::join('types', 'projects.type_id', '=', 'types.id')
+            ->select('projects.*', 'types.type as type_name')
+            ->get();
+        /* $types = Type::all();
+        $technologies = Technology::all(); */
+        return view('admin.projects.index', compact('projects'/* , 'types', 'technologies' */));
     }
 
     /* Show the form for creating a new resource. */
@@ -32,7 +36,7 @@ class ProjectController extends Controller
 
         $types = Type::all();
 
-        $technologies = Tecnology::all();
+        $technologies = Technology::all();
 
         return view('admin.projects.create', compact('types', 'technologies'));
     }
@@ -85,7 +89,7 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        $technologies = Tecnology::all();
+        $technologies = Technology::all();
         return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
@@ -107,12 +111,12 @@ class ProjectController extends Controller
             $val_data['thumb'] = $path;
         }
         // eseguo un detach per rimuovere tutti i vecchi collegamenti con le tecnologie
-        if ($request->has('technologies')){
+        if ($request->has('technologies')) {
             $project->technologies()->sync($data['technologies']);
         }
 
         // prendo i dati della richiesta e lo passo nel model Technology e tramite attach,
-        // creo il collegamento nella tabella condivisa tra project e tecnology
+        // creo il collegamento nella tabella condivisa tra project e Technology
         /* $project->technologies()->attach($request->technologies); */
 
         $project->update($data);
